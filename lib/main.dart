@@ -1,11 +1,15 @@
 /* import - импортирует Подключает основные виджеты Flutter,
  такие как MaterialApp, Scaffold, Text, Column и т. д.*/
 import 'package:flutter/material.dart';
+import 'services/weather_service.dart';
 import 'pages/weather_page.dart';
 
 // void main - функция для запуска нашего приложения MyApp
-void main() {
-  runApp(const MyApp());
+void main() async {
+  final WeatherService weatherService = WeatherService(
+      '12f4d97fcab370d53e0844d9e9bc1e56'); // Загружаем API-ключ из .env
+
+  runApp(MyApp(weatherService));
 }
 
 /* 
@@ -19,14 +23,19 @@ void main() {
 Он помогает взаимодействовать с другими виджетами.
  */
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final WeatherService weatherService;
+
+  const MyApp(this.weatherService, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Loh',
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WeatherPage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue, // Основной цвет приложения
+      ),
+      home: WeatherPage(
+          weatherService: weatherService), // Передаём сервис в страницу погоды
     );
   }
 }

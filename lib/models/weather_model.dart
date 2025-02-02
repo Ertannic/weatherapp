@@ -1,4 +1,3 @@
-
 class Weather {
   // Название города
   final String cityName;
@@ -18,14 +17,14 @@ class Weather {
   /* 🔍 Что такое fromJson()?
   💡 Это функция, которая берёт JSON-данные и превращает их в объект Weather.
  */
-factory Weather.fromJson(Map<String, dynamic> json) {
-  return Weather(
-    // Берём название города из JSON
-    cityName: json['name'],
-    // Берём температуру
-    temperature: json['main']['temp'].toDouble(),
-    // Берём описание погоды
-    description: json['weather']['description']
-  );
-}
+  factory Weather.fromJson(Map<String, dynamic> json) {
+    return Weather(
+      // Берём название города из JSON
+      cityName: json['name'] ?? 'Неизвестный город',
+      // Берём температуру
+      temperature: json['main']['temp']?.toDouble() ?? 0.0,
+      // Берём описание погоды
+      description: json['weather'][0]['description'] ?? 'Нет данных',
+    );
+  }
 }

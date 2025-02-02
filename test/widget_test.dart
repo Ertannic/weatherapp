@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:weatherapp/main.dart';
+import 'package:weatherapp/services/weather_service.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester
+        .pumpWidget(MyApp(WeatherService('12f4d97fcab370d53e0844d9e9bc1e56')));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
